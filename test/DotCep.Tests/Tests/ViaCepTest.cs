@@ -1,8 +1,8 @@
 using Xunit;
 using DotCep.Services;
 using System.Threading.Tasks;
-using System;
 using DotCep.Exceptions;
+using DotCep.Domain;
 
 namespace DotCep.Tests
 {
@@ -24,7 +24,8 @@ namespace DotCep.Tests
 
         [Fact]
         public void Shoud_Find_ValidCep(){
-            var task = Task.Run(() => viacepService.GetAddressByCep("31510480"));              
+            var t = Task.Run(() => viacepService.GetAddressByCep("31510480"));
+            Assert.True(t.Result as Address != null);             
         }
 
 
