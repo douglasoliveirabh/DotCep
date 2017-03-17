@@ -3,15 +3,16 @@ using DotCep.Services;
 
 namespace DotCep.Tests
 { 
-    public class CorreiosTest
+    public class CepTest
     {
-        private CorreiosService correiosService;
+         private CepService CepService;
 
-        public CorreiosTest()
-        {
-            this.correiosService = new CorreiosService();
-        }
-        
+         public CepTest()
+         {
+             this.CepService = new CepService();
+         }
+
+
         [Fact]
         public void Should_Find_Invalid_Cep()
         {

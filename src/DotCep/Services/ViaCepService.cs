@@ -12,7 +12,7 @@ namespace DotCep.Services
     public class ViaCepService : ICepService
     {
 
-        private string url = "https://viacep.com.br/ws/{0}/json/";
+        private string url = "https://viacep.com.br/ws/{0}/json";
 
         private string GetFormatUrl(string cep)
         {
@@ -49,7 +49,6 @@ namespace DotCep.Services
             {
                 throw;
             }
-
         }
 
 

@@ -10,7 +10,7 @@ namespace DotCep.Services
     {
         public Task<Address> GetAddressByCep(string cep)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<Address>(new Address(cep,"","","","", eServiceUsed.Correios));
         }
     }
 }
