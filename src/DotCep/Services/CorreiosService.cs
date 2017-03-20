@@ -1,11 +1,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using System.Xml.Linq;
 using DotCep.Domain;
 using DotCep.Exceptions;
-using System.Text;
+using System.Linq;
+
 
 namespace DotCep.Services
 {
@@ -35,33 +35,26 @@ namespace DotCep.Services
                 using (HttpClient client = new HttpClient())
                 using (HttpResponseMessage response = await client.PostAsync(url, new StringContent(GetFormatBody(cep))))
                 {
-                    if (response.StatusCode == HttpStatusCode.BadRequest)
+                    //throw new Exceptions.AddressNotFoundException("");
+
+                    if (response.StatusCode == HttpStatusCode.BadRequest || 
+                        response.StatusCode == HttpStatusCode.InternalServerError)
                         throw new AddressNotFoundException("Address not Found");
 
                     using (HttpContent content = response.Content)
-                    {
-                        //dynamic data = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(await content.ReadAsByteArrayAsync()));                        
+                    {                        
+                        XDocument correiosResponse = XDocument.Load(await content.ReadAsStreamAsync());                        
+                        var data = (from c in correiosResponse.Descendants()
+                                    where c.Name == "return"
+                                    select c).SingleOrDefault();                        
 
-                        XDocument correiosResponse = XDocument.Load(await content.ReadAsStreamAsync());
-                        var cepResponse = correiosResponse.Descendants("Body").Descendants("consultaCEPResponse");
-                        var cepData = cepResponse.Descendants("return");
-
-                        var nodes = cepData.Nodes();
-                        
-
-                        System.Console.Write();
-
-
-
-                        return await Task.FromResult<Address>(new Address("", "", "", "", "", eUsedService.Correios));
-
-                        /*return await Task.FromResult<Address>(new Address((string)data.cep,
-                                                                          (string)data.uf,
-                                                                          (string)data.localidade,
-                                                                          (string)data.bairro,
-                                                                          (string)data.logradouro,
+                        return await Task.FromResult<Address>(new Address(data.Element(XName.Get("cep")).Value,
+                                                                          data.Element(XName.Get("uf")).Value,
+                                                                          data.Element(XName.Get("cidade")).Value,
+                                                                          data.Element(XName.Get("bairro")).Value,
+                                                                          data.Element(XName.Get("end")).Value,
                                                                           eUsedService.Correios));
-                                                                          */
+                                                                          
                     }
                 }
             }
