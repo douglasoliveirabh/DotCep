@@ -12,5 +12,8 @@
   },
   "tooling": {
     "defaultNamespace": "DotCep"
+  },
+  "buildOptions": {
+    "debugType": "portable"
   }
 }

@@ -1,6 +1,6 @@
 namespace DotCep.Domain
 {
-    public enum eServiceUsed
+    public enum eUsedService
     {
         Correios = 0,
         ViaCep = 1
@@ -14,16 +14,16 @@ namespace DotCep.Domain
         public string Neighborhood { get; private set; }
         public string Street { get; private set; }
 
-        public eServiceUsed ServiceUsed { get; private set; }
+        public eUsedService UsedService { get; private set; }
 
-        public Address(string cep, string state, string city, string neighborhood, string street, eServiceUsed serviceUsed)
+        public Address(string cep, string state, string city, string neighborhood, string street, eUsedService usedService)
         {
             this.Cep = cep;
             this.State = state;
             this.City = city;
             this.Neighborhood = neighborhood;
             this.Street = street;
-            this.ServiceUsed = serviceUsed;
+            this.UsedService = usedService;
         }
 
         public override string ToString()
@@ -41,9 +41,7 @@ namespace DotCep.Domain
                     this.City,
                     this.Neighborhood,
                     this.Street,
-                    this.ServiceUsed.ToString());
-
-
+                    this.UsedService.ToString());
         }
     }
 }

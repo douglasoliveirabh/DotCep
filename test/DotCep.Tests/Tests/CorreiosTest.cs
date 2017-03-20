@@ -1,5 +1,7 @@
 using Xunit;
 using DotCep.Services;
+using System.Threading.Tasks;
+using DotCep.Domain;
 
 namespace DotCep.Tests
 { 
@@ -10,16 +12,19 @@ namespace DotCep.Tests
         public CorreiosTest()
         {
             this.correiosService = new CorreiosService();
-        }
-        
+        }        
+
         [Fact]
         public void Should_Find_Invalid_Cep()
-        {
-           // var cep = CorreiosService.GetAddressByCep("31510480");
-
-            
+        {                
+            //Assert.ThrowsAsync<AddressNotFoundException>(async () => await correiosService.GetAddressByCep("89198198198198"));
         }
 
+        [Fact]
+        public void Shoud_Find_ValidCep(){
+            var t = Task.Run(() => correiosService.GetAddressByCep("31510480"));
+            Assert.True(t.Result as Address != null);             
+        }
 
     }
 }

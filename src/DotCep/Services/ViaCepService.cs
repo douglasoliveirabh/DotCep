@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Net;
 using DotCep.Domain;
 using DotCep.Exceptions;
-using System;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -37,7 +36,7 @@ namespace DotCep.Services
                                                                           (string)data.localidade,
                                                                           (string)data.bairro,
                                                                           (string)data.logradouro,
-                                                                          eServiceUsed.ViaCep));
+                                                                          eUsedService.ViaCep));
                     }
                 }
             }
