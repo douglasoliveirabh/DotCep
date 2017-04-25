@@ -5,6 +5,7 @@ using DotCep.Domain;
 using DotCep.Exceptions;
 using Newtonsoft.Json;
 using System.Text;
+using System;
 
 namespace DotCep.Services
 {
@@ -18,7 +19,7 @@ namespace DotCep.Services
             return string.Format(url, cep);
         }
 
-        public async Task<Address> GetAddressByCep(string cep)
+        public async Task<Address> GetAddressByCepAsync(string cep)
         {
             try
             {
@@ -44,12 +45,16 @@ namespace DotCep.Services
             {
                 throw ex;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw;
             }
         }
 
+        public Address GetAddressByCep(string cep)
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

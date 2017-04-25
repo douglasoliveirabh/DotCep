@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using DotCep.Domain;
 using DotCep.Exceptions;
 using System.Linq;
-
+using System;
 
 namespace DotCep.Services
 {
@@ -28,7 +28,7 @@ namespace DotCep.Services
             return string.Format(body, cep);
         }
 
-        public async Task<Address> GetAddressByCep(string cep)
+        public async Task<Address> GetAddressByCepAsync(string cep)
         {
             try
             {
@@ -62,10 +62,17 @@ namespace DotCep.Services
             {
                 throw ex;
             }
-            catch (System.Exception ex2)
+            catch (Exception ex2)
             {
-                throw;
+                throw ex2;
             }
-        }       
+        } 
+
+
+       public Address GetAddressByCep(string cep)
+        {
+            throw new NotImplementedException();
+        }
+      
     }
 }

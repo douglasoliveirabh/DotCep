@@ -19,12 +19,12 @@ namespace DotCep.Tests
         [Fact]
         public void Should_Find_Invalid_Cep()
         {                
-            Assert.ThrowsAsync<AddressNotFoundException>(async () => await cepService.GetAddressByCep("89198198198198"));
+            Assert.ThrowsAsync<AddressNotFoundException>(async () => await cepService.GetAddressByCepAsync("89198198198198"));
         }
 
         [Fact]
         public void Shoud_Find_ValidCep(){
-            var t = Task.Run(() => cepService.GetAddressByCep("30150221"));
+            var t = Task.Run(() => cepService.GetAddressByCepAsync("30150221"));
             Assert.True(t.Result as Address != null);             
         }
 

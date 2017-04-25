@@ -5,7 +5,9 @@ namespace DotCep.Services
 {
     public interface ICepService
     {
-      Task<Address> GetAddressByCep(string cep);
+      Task<Address> GetAddressByCepAsync(string cep);
+
+      Address GetAddressByCep(string cep);
 
     }
 

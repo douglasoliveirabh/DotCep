@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using DotCep.Domain;
 using DotCep.Exceptions;
 using System.Collections.Generic;
+using System;
 
 namespace DotCep.Services
 {
@@ -17,14 +18,14 @@ namespace DotCep.Services
             this.CorrService = new CorreiosService();
             this.VcService = new ViaCepService();
         }
-
-        public async Task<Address> GetAddressByCep(string cep)
+        
+        public async Task<Address> GetAddressByCepAsync(string cep)
         {
             try
             {
                 var cepTasks = new List<Task<Address>>(){
-                    this.CorrService.GetAddressByCep(cep),
-                    this.VcService.GetAddressByCep(cep)
+                    this.CorrService.GetAddressByCepAsync(cep),
+                    this.VcService.GetAddressByCepAsync(cep)
                 };
 
                 var returnTask = await Task<Address>.WhenAny(cepTasks.ToArray());
@@ -36,13 +37,16 @@ namespace DotCep.Services
             {
                 throw ex;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 throw;
             }
+        }        
+
+        public Address GetAddressByCep(string cep)
+        {
+            throw new NotImplementedException();
         }
-
-
     }
 }
 
